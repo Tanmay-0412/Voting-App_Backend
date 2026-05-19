@@ -5,7 +5,7 @@ const userModel = require('../models/user')
 
 userRouter.post('/signup', async(req,res)=>{
     try {
-        const {username, aadharCardNumber, password} = req.body
+        const {username, aadharCardNumber, password, role} = req.body
         const existingUser = await userModel.findOne({
             $or : [{username}, {aadharCardNumber}]
         })
@@ -21,7 +21,7 @@ userRouter.post('/signup', async(req,res)=>{
         
         const hashPassword = await bcrypt.hash(password, 10)
         // New instance of the user model 
-        const userObj = {username, aadharCardNumber, password : hashPassword} 
+        const userObj = {username, aadharCardNumber, password : hashPassword, role } 
         const user = new userModel(userObj)
         
         await user.save()
@@ -54,6 +54,7 @@ userRouter.post('/login', async(req,res)=>{
 })
 
 userRouter.post('/logout', async(req,res)=>{
-
+    res.cookie("token", null, {expires: new Date(Date.now())})
+    res.json({message:"Logout Successful !"})
 })
 module.exports = userRouter

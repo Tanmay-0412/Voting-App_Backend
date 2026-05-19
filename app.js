@@ -12,15 +12,14 @@ app.use(cookieParser())
 const userRouter  = require('./router/userRouter')
 const profileRouter = require('./router/profileRouter')
 const candidateRouter = require('./router/candidateRouter')
+const adminRouter = require('./router/adminRouter')
+const voteRouter = require('./router/voteRouter')
 
 app.use('/', userRouter)
 app.use('/', profileRouter)
 app.use('/', candidateRouter)
-
-app.get('/', (req,res)=>{
-    res.send("Backend is running...")
-})
-
+app.use('/', adminRouter)
+app.use('/', voteRouter)
 
 mongoose.connect(process.env.DB_URI)
     .then(()=> console.log('Database connected successfully...'))

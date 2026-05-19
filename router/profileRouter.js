@@ -12,9 +12,9 @@ profileRouter.get('/profile/view', UserAuth, async(req,res)=>{
     }
 })
 
-profileRouter.post('/profile/update', UserAuth, async(req,res)=>{
+profileRouter.patch('/profile/update/:userId', UserAuth, async(req,res)=>{
     try{
-        const user = req.user
+        const userId = req.params.userId
         const data = req.body
         const allowedFields = [ "age", "email", "mobile", "username"]
         const isAllowed = Object.keys(data).every(field => allowedFields.includes(field))
@@ -22,10 +22,8 @@ profileRouter.post('/profile/update', UserAuth, async(req,res)=>{
         if(!isAllowed){
             res.status(400).json({message:'Invalid Edit Request'})
         }
-        const User = await userModel.findById(user._id)
-
-        await User.save()
-        res.json({message:'Profile updated successfully !'})
+        const User = await userModel.findByIdAndUpdate(userId, data , {new:true})
+        res.json({message:'Profile updated successfully !', data : User})
     }catch(err){
         res.status(400).json({message:err.message})
     }

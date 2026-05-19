@@ -9,12 +9,14 @@
 - /profile/view
 - /profile/update
 
-> Candidate Management
-- /candidates
-- /cast/vote/:candidateId (on vote by a user/day)
-- /delete/vote/:candidateId
-- /update/vote/:candidateId
+> Candidate Management - if role === 'admin'
+- /candidate/add  
+- /candidate/delete/:candidateId
+- /candidate/update/:candidateId
 
 > Admin role
-- /view/votes
-- /add/candidate      (candidates list )
+- /users/list
+- /candidates/list    
+
+> User Vote System
+- cast/vote/:candidateId
