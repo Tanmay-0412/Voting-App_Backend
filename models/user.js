@@ -10,7 +10,11 @@ const userSchema = new mongoose.Schema({
         unique:true
     },
     age:{
-        type:String,
+        type:Number,
+        validate(value){
+            if(value < 18 || value > 100)
+            throw new Error('Enter valid user age. Age must be between 18 to 100')
+        }
     },
     email:{
         type:String,
@@ -24,7 +28,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         validate : {
             validator : function(value){
-                return validator.isMobilePhone(value)
+                return validator.isMobilePhone(value, 'en-IN')
             },
             message : props => `${props.value} is not a valid number !`
         }   
