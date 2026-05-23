@@ -54,7 +54,7 @@ userRouter.post('/login', async(req,res)=>{
         const token = await user.getJWT()
         res.cookie("token", token, {expires: new Date(Date.now()+ 1* 3600000)})
 
-        res.json({message:'Login successfull !'})
+        res.json({message:'Login successfull !', data : user, token : token})
     }catch(err){
         res.status(400).json({message :err.message})
     }

@@ -3,7 +3,7 @@ const UserAuth = require('../middleware/auth')
 const candidateModel = require('../models/candidate')
 const userModel = require('../models/user')
 const candidateRouter = express.Router()
-const checkAdminRole = require('../utilis/validation')
+const {checkAdminRole} = require('../utilis/validation')
 
 const Allowed_Fields =  ["candidateName","party","age","votes","voteCount"]
 

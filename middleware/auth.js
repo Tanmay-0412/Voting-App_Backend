@@ -6,14 +6,14 @@ const UserAuth = async(req,res,next)=>{
     try{
         const {token} = req.cookies
         if(!token){
-            res.status(400).json({message:"Invalid Token"})
+            return res.status(400).json({message:"Invalid Token"})
         }
         const decodedObj = await jwt.verify(token,'VotingApp@2026')
         const {_id} = decodedObj
 
         const user = await userModel.findById(_id)
         if(!user){
-            res.status(400).json({message:"User not found!"})
+            return res.status(400).json({message:"User not found!"})
         }
         req.user = user
         next()

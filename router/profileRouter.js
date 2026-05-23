@@ -18,7 +18,7 @@ profileRouter.patch('/profile/update/:userId', UserAuth, async(req,res)=>{
         const data = req.body
         const allowedFields = [ "age", "email", "mobile", "username"]
         const isAllowed = Object.keys(data).every(field => allowedFields.includes(field))
-        console.log(isAllowed)
+        // console.log(isAllowed)
         if(!isAllowed){
             res.status(400).json({message:'Invalid Edit Request'})
         }

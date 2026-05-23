@@ -2,7 +2,7 @@ const express = require('express')
 const UserAuth = require('../middleware/auth')
 const userModel = require('../models/user')
 const adminRouter = express.Router()
-const checkAdminRole = require('../utilis/validation')
+const { checkAdminRole } = require('../utilis/validation')
 const candidateModel = require('../models/candidate')
 
 adminRouter.get('/users/list', UserAuth, async(req,res)=>{
