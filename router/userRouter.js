@@ -51,6 +51,12 @@ userRouter.post('/login', async(req,res)=>{
         if(!isMatch){
             return res.status(400).json({message:'Passowrd incorrect.. please try again'})
         }
+
+        //check Role
+        if(role !== user.role){
+            return res.status(401).json({message:"User Authorization Failed"})
+        }
+        // const isRo 
         const token = await user.getJWT()
         res.cookie("token", token, {expires: new Date(Date.now()+ 1* 3600000)})
 

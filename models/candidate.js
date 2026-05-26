@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const validator = require('validator')
 
 // Define the candidate schema
 const candidateSchema = new mongoose.Schema({
