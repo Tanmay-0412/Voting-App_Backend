@@ -58,7 +58,13 @@ userRouter.post('/login', async(req,res)=>{
         }
         // const isRo 
         const token = await user.getJWT()
-        res.cookie("token", token, {expires: new Date(Date.now()+ 1* 3600000)})
+        // res.cookie("token", token, {expires: new Date(Date.now()+ 1* 3600000)})
+        res.cookie("token", token, {
+            httpOnly: true,          // prevents JS access
+            secure: true,            // required for HTTPS (Render uses HTTPS)
+            sameSite: "None",        // allows cross-origin cookies
+            expires: new Date(Date.now() + 3600000) // 1 hour
+        });
 
         res.json({message:'Login successfull !', data : user, token : token})
     }catch(err){
